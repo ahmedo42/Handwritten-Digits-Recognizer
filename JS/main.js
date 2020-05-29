@@ -11,7 +11,10 @@ ctx.lineWidth = 10;
 ctx.lineCap = "round";
 ctx.strokeStyle = 'white';
 
-window.addEventListener('load',loadModel());
+window.addEventListener('load',async function loadModel(){
+    model = undefined;
+    model = await tf.loadLayersModel("models/model.json")
+});
 
 clearBtn.addEventListener("click",function clearCanvas(){
     ctx.clearRect(0, 0, grid.width, grid.height);
@@ -55,10 +58,6 @@ function preProcess(image){
         .expandDims()
         .toFloat();
     return tensor.div(255.0);
-}
-async function loadModel(){
-    model = undefined;
-    model = await tf.loadLayersModel("models/model.json")
 }
 
 
